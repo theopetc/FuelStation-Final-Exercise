@@ -20,7 +20,7 @@ namespace FuelStation.EF.Configurations
 
             builder.Property(customer => customer.Name).HasMaxLength(30);
             builder.Property(customer => customer.Surname).HasMaxLength(30);
-            builder.Property(customer => customer.CardNumber);
+            builder.HasIndex(customer => customer.CardNumber).IsUnique(true);
 
             builder.HasMany(customer => customer.Transactions).WithOne(transaction => transaction.Customer)
                    .HasForeignKey(customer => customer.ID);

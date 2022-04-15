@@ -3,7 +3,7 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<h3>Monthly Ledgers List</h3>
+<h3>Monthly Ledgers List - Unavailiable</h3>
 
 
 
@@ -14,6 +14,30 @@
 else
 {
     <button class="btn btn-primary" @onclick="AddNewMonthlyLedger" >New Monthly Ledger</button>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Year</label>
+            <input class="form-control" type="number" min="1999" max="2050" step="1" @bind="@ledgerView.Year"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Month</label>
+            <select class="form-select" @bind="@ledgerView.Month" >
+                <option selected="selected" value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+        </div>
+
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -46,17 +70,18 @@ else
 
 @code {
     private LedgerListViewModel ledgerlistView = new();
-    private bool isLoading = true;
+    private LedgerViewModel ledgerView { get; set; }
+    private bool isLoading = false;
 
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadItemsFromServer();
-        isLoading = false;
-    }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    await LoadItemsFromServer();
+    //    isLoading = false;
+    //}
 
     async Task AddNewMonthlyLedger()
     {
-        navigationManager.NavigateTo($"ledger/create");
+        //ledgerlistView.AddAsync(ledgerView);
     }
 
     async Task DeleteCategory(LedgerViewModel ledgerView)

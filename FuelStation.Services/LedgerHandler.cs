@@ -24,7 +24,7 @@ namespace FuelStation.Services
         {
             int year = int.Parse(ledger.Year);
             int month = int.Parse(ledger.Month);
-            return await _context.Transactions.Where(transaction => transaction.Date.Year == year && transaction.Date.Month == month)
+            return (decimal)await _context.Transactions.Where(transaction => transaction.Date.Year == year && transaction.Date.Month == month)
                                               .SumAsync(transaction => transaction.TotalValue);
         }
 
@@ -32,7 +32,7 @@ namespace FuelStation.Services
         {
             int year = int.Parse(ledger.Year);
             int month = int.Parse(ledger.Month);
-            return await _context.Transactions.Where(transaction => transaction.Date.Year == year && transaction.Date.Month == month)
+            return (decimal)await _context.Transactions.Where(transaction => transaction.Date.Year == year && transaction.Date.Month == month)
                                               .SumAsync(transaction => transaction.TotalValue);
 
         }

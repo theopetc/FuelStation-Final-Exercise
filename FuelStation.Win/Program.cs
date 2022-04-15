@@ -29,7 +29,8 @@ namespace FuelStation.Win
             
             services.AddSingleton<IEntityRepo<Customer>, CustomerRepo>();
             services.AddSingleton<IEntityRepo<Item>, ItemRepo>();
-            //services.AddSingleton<IEntityRepo<Transaction>, TransactionRepo>();
+            services.AddSingleton<IEntityRepo<Transaction>, TransactionRepo>();
+            services.AddSingleton<IEntityRepo<Employee>, EmployeeRepo>();
             //services.AddSingleton<IEntityRepo<TransactionLine>, TransactionLineRepo>();
 
             //services.AddSingleton<CustomerForm>();

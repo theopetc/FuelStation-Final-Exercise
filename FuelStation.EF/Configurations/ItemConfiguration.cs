@@ -20,6 +20,7 @@ namespace FuelStation.EF.Configurations
             builder.Property(item => item.ItemType).HasConversion(itemType => itemType.ToString(), itemType => (ItemType)Enum.Parse(typeof(ItemType), itemType)); ;
             builder.Property(item => item.Cost).HasColumnType("decimal(10, 2)");
             builder.Property(item => item.Price).HasColumnType("decimal(10, 2)");
+            builder.HasIndex(item => item.Code).IsUnique(true);
 
             builder.HasOne(item => item.TransactionLine)
                 .WithOne(transactionLine => transactionLine.Item)

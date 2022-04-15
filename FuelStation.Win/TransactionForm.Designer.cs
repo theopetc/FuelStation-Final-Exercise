@@ -40,18 +40,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtItem = new System.Windows.Forms.TextBox();
             this.txtQuantity = new System.Windows.Forms.TextBox();
-            this.txtPrice = new System.Windows.Forms.TextBox();
-            this.txtDiscount = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.btnAddTransaction = new System.Windows.Forms.Button();
             this.btnRemoveTransaction = new System.Windows.Forms.Button();
             this.btnAddTransactionLine = new System.Windows.Forms.Button();
             this.btnRemoveTransactionLine = new System.Windows.Forms.Button();
             this.btnEditTransactionLine = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.comboBoxItem = new System.Windows.Forms.ComboBox();
+            this.btnAddNewCustomer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).BeginInit();
             this.SuspendLayout();
@@ -62,22 +59,22 @@
             this.grvTransactions.Location = new System.Drawing.Point(12, 27);
             this.grvTransactions.Name = "grvTransactions";
             this.grvTransactions.RowTemplate.Height = 25;
-            this.grvTransactions.Size = new System.Drawing.Size(564, 138);
+            this.grvTransactions.Size = new System.Drawing.Size(564, 159);
             this.grvTransactions.TabIndex = 0;
             // 
             // grvTransactionLines
             // 
             this.grvTransactionLines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grvTransactionLines.Location = new System.Drawing.Point(12, 186);
+            this.grvTransactionLines.Location = new System.Drawing.Point(12, 207);
             this.grvTransactionLines.Name = "grvTransactionLines";
             this.grvTransactionLines.RowTemplate.Height = 25;
-            this.grvTransactionLines.Size = new System.Drawing.Size(564, 252);
+            this.grvTransactionLines.Size = new System.Drawing.Size(564, 231);
             this.grvTransactionLines.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 168);
+            this.label1.Location = new System.Drawing.Point(12, 189);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 15);
             this.label1.TabIndex = 2;
@@ -138,7 +135,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(649, 182);
+            this.label6.Location = new System.Drawing.Point(649, 207);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(116, 15);
             this.label6.TabIndex = 9;
@@ -147,7 +144,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(614, 208);
+            this.label7.Location = new System.Drawing.Point(614, 233);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(31, 15);
             this.label7.TabIndex = 10;
@@ -156,57 +153,18 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(592, 247);
+            this.label8.Location = new System.Drawing.Point(592, 272);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(53, 15);
             this.label8.TabIndex = 11;
             this.label8.Text = "Quantity";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(612, 285);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(33, 15);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "Price";
-            // 
-            // txtItem
-            // 
-            this.txtItem.Location = new System.Drawing.Point(649, 205);
-            this.txtItem.Name = "txtItem";
-            this.txtItem.Size = new System.Drawing.Size(100, 23);
-            this.txtItem.TabIndex = 13;
-            // 
             // txtQuantity
             // 
-            this.txtQuantity.Location = new System.Drawing.Point(649, 242);
+            this.txtQuantity.Location = new System.Drawing.Point(649, 267);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(100, 23);
             this.txtQuantity.TabIndex = 14;
-            // 
-            // txtPrice
-            // 
-            this.txtPrice.Location = new System.Drawing.Point(649, 279);
-            this.txtPrice.Name = "txtPrice";
-            this.txtPrice.Size = new System.Drawing.Size(100, 23);
-            this.txtPrice.TabIndex = 15;
-            // 
-            // txtDiscount
-            // 
-            this.txtDiscount.Location = new System.Drawing.Point(649, 316);
-            this.txtDiscount.Name = "txtDiscount";
-            this.txtDiscount.Size = new System.Drawing.Size(100, 23);
-            this.txtDiscount.TabIndex = 17;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(592, 319);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(54, 15);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "Discount";
             // 
             // btnAddTransaction
             // 
@@ -216,6 +174,7 @@
             this.btnAddTransaction.TabIndex = 18;
             this.btnAddTransaction.Text = "Add Transaction";
             this.btnAddTransaction.UseVisualStyleBackColor = true;
+            this.btnAddTransaction.Click += new System.EventHandler(this.btnAddTransaction_Click);
             // 
             // btnRemoveTransaction
             // 
@@ -228,7 +187,7 @@
             // 
             // btnAddTransactionLine
             // 
-            this.btnAddTransactionLine.Location = new System.Drawing.Point(649, 354);
+            this.btnAddTransactionLine.Location = new System.Drawing.Point(649, 296);
             this.btnAddTransactionLine.Name = "btnAddTransactionLine";
             this.btnAddTransactionLine.Size = new System.Drawing.Size(132, 23);
             this.btnAddTransactionLine.TabIndex = 20;
@@ -237,7 +196,7 @@
             // 
             // btnRemoveTransactionLine
             // 
-            this.btnRemoveTransactionLine.Location = new System.Drawing.Point(649, 383);
+            this.btnRemoveTransactionLine.Location = new System.Drawing.Point(649, 325);
             this.btnRemoveTransactionLine.Name = "btnRemoveTransactionLine";
             this.btnRemoveTransactionLine.Size = new System.Drawing.Size(146, 23);
             this.btnRemoveTransactionLine.TabIndex = 21;
@@ -246,7 +205,7 @@
             // 
             // btnEditTransactionLine
             // 
-            this.btnEditTransactionLine.Location = new System.Drawing.Point(649, 412);
+            this.btnEditTransactionLine.Location = new System.Drawing.Point(649, 354);
             this.btnEditTransactionLine.Name = "btnEditTransactionLine";
             this.btnEditTransactionLine.Size = new System.Drawing.Size(75, 23);
             this.btnEditTransactionLine.TabIndex = 22;
@@ -255,30 +214,45 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(730, 412);
+            this.btnCancel.Location = new System.Drawing.Point(649, 383);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 23;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // comboBoxItem
+            // 
+            this.comboBoxItem.FormattingEnabled = true;
+            this.comboBoxItem.Location = new System.Drawing.Point(651, 230);
+            this.comboBoxItem.Name = "comboBoxItem";
+            this.comboBoxItem.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxItem.TabIndex = 24;
+            // 
+            // btnAddNewCustomer
+            // 
+            this.btnAddNewCustomer.Location = new System.Drawing.Point(649, 168);
+            this.btnAddNewCustomer.Name = "btnAddNewCustomer";
+            this.btnAddNewCustomer.Size = new System.Drawing.Size(100, 23);
+            this.btnAddNewCustomer.TabIndex = 25;
+            this.btnAddNewCustomer.Text = "Add Customer";
+            this.btnAddNewCustomer.UseVisualStyleBackColor = true;
+            this.btnAddNewCustomer.Click += new System.EventHandler(this.btnAddNewCustomer_Click);
+            // 
             // TransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(813, 450);
+            this.Controls.Add(this.btnAddNewCustomer);
+            this.Controls.Add(this.comboBoxItem);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnEditTransactionLine);
             this.Controls.Add(this.btnRemoveTransactionLine);
             this.Controls.Add(this.btnAddTransactionLine);
             this.Controls.Add(this.btnRemoveTransaction);
             this.Controls.Add(this.btnAddTransaction);
-            this.Controls.Add(this.txtDiscount);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.txtPrice);
             this.Controls.Add(this.txtQuantity);
-            this.Controls.Add(this.txtItem);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -293,6 +267,7 @@
             this.Controls.Add(this.grvTransactions);
             this.Name = "TransactionForm";
             this.Text = "Transaction Form";
+            this.Load += new System.EventHandler(this.TransactionForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvTransactionLines)).EndInit();
             this.ResumeLayout(false);
@@ -314,17 +289,14 @@
         private Label label6;
         private Label label7;
         private Label label8;
-        private Label label9;
-        private TextBox txtItem;
         private TextBox txtQuantity;
-        private TextBox txtPrice;
-        private TextBox txtDiscount;
-        private Label label10;
         private Button btnAddTransaction;
         private Button btnRemoveTransaction;
         private Button btnAddTransactionLine;
         private Button btnRemoveTransactionLine;
         private Button btnEditTransactionLine;
         private Button btnCancel;
+        private ComboBox comboBoxItem;
+        private Button btnAddNewCustomer;
     }
 }

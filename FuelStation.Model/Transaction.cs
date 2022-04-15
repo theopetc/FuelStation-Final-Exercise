@@ -12,9 +12,9 @@ namespace FuelStation.Model
         public int EmployeeID { get; set; }
         public int CustomerID { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
-        public decimal TotalValue { get; set; }
+        public decimal? TotalValue { get; set; }
         public List<TransactionLine> TransactionLines { get; set; } = new List<TransactionLine>();
-        //Realations
+        //Relations
         public Customer Customer { get; set; }
         public Employee Employee { get; set; }
         public Transaction()

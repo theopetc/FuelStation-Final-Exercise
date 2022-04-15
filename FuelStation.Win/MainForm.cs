@@ -7,20 +7,24 @@ namespace FuelStation.Win
     {
         private readonly IEntityRepo<Customer> _customerRepo;
         private readonly IEntityRepo<Item> _itemRepo;
-        //private readonly IEntityRepo<Transaction> _transactionRepo;
+        private readonly IEntityRepo<Employee> _employeeRepo;
+        private readonly IEntityRepo<Transaction> _transactionRepo;
         //private readonly IEntityRepo<TransactionLine> _transactionLineRepo;
 
-        public MainForm(IEntityRepo<Customer> customerRepo, IEntityRepo<Item> itemRepo)
+        public MainForm(IEntityRepo<Customer> customerRepo, IEntityRepo<Item> itemRepo,
+                        IEntityRepo<Employee> employeeRepo, IEntityRepo<Transaction> transactionRepo)
         {
             _customerRepo = customerRepo;
             _itemRepo = itemRepo;
+            _employeeRepo = employeeRepo;
+            _transactionRepo = transactionRepo;
             InitializeComponent();
 
         }
 
         private void btnTransactions_Click(object sender, EventArgs e)
         {
-            var transactionForm = new TransactionForm();
+            var transactionForm = new TransactionForm(_customerRepo, _itemRepo, _employeeRepo, _transactionRepo);
             transactionForm.ShowDialog();
         }
 
