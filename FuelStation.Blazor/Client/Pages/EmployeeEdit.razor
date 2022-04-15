@@ -1,0 +1,90 @@
+﻿@page "/employees/edit/{id:int?}"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+@using FuelStation.Model
+
+<h3>EmployeeEdit</h3>
+
+@if (Employee == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind="@Employee.Name"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Surname</label>
+            <input class="form-control" @bind="@Employee.Surname"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Employee Type</label>
+            <select class="form-select" @bind="@Employee.EmployeeType">
+                @foreach (var type in Enum.GetValues(typeof(EmployeeType)))
+                {
+                    <option value="@type">@type</option>
+                }
+            </select>
+        </div> 
+        <div class="col-md-6">
+            <label class="form-label">Hired Date</label>
+            <input class="form-control" @bind="@Employee.HireDateStart"/>
+        </div> 
+        <div class="col-md-6">
+            <label class="form-label">Fired Date</label>
+            <input class="form-control" @bind="@Employee.HireDateEnd"/>
+        </div> 
+        <div class="col-md-6">
+            <label class="form-label">Sallary Per Month</label>
+            <input class="form-control" @bind="@Employee.SallaryPerMonth"/>
+        </div> 
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <button class="btn btn-success" @onclick="OnSave">Save</button>
+                <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+}
+
+
+@code {
+    [Parameter] public int? id { get; set; }
+    EmployeeListViewModel Employee { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (id == null)
+        {
+            Employee = new EmployeeListViewModel();
+        }
+        else
+        {
+            Employee = await httpClient.GetFromJsonAsync<EmployeeListViewModel>($"/employee/{id}");
+        }
+    }
+
+    protected void OnCancel()
+    {
+        navigationManager.NavigateTo("/employees");
+    }
+
+    protected async Task OnSave()
+    {
+        HttpResponseMessage response;
+        if (id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("/employee", Employee);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("/employee", Employee);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("/employees");
+    }
+}

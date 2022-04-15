@@ -1,0 +1,86 @@
+﻿@page "/items/edit/{id:int?}"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+@using FuelStation.Model
+
+<h3>Item Edit</h3>
+
+@if (Item == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Code</label>
+            <input class="form-control" @bind="@Item.Code"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Description</label>
+            <input class="form-control" @bind="@Item.Description"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Item Type</label>
+            <select class="form-select" @bind="@Item.ItemType">
+                @foreach (var type in Enum.GetValues(typeof(ItemType)))
+                {
+                    <option value="@type">@type</option>
+                }
+            </select>
+        </div> 
+        <div class="col-md-6">
+            <label class="form-label">Price</label>
+            <input class="form-control" @bind="@Item.Price"/>
+        </div>  
+        <div class="col-md-6">
+            <label class="form-label">Cost</label>
+            <input class="form-control" @bind="@Item.Cost"/>
+        </div>  
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mt-2">
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+    
+}
+
+@code {
+    [Parameter] public int? id { get; set; }
+    ItemListViewModel Item { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (id == null)
+        {
+            Item = new ItemListViewModel();
+        }
+        else
+        {
+            Item = await httpClient.GetFromJsonAsync<ItemListViewModel>($"/Item/{id}");
+        }
+    }
+
+    protected void OnCancel()
+    {
+        navigationManager.NavigateTo("/items");
+    }
+
+    protected async Task OnSave()
+    {
+        HttpResponseMessage response;
+        if (id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("/Item", Item);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("/Item", Item);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("/items");
+    }
+}

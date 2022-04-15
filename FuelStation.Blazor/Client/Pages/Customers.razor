@@ -1,0 +1,70 @@
+﻿@page "/customers"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Customers</h3>
+
+<button class="btn btn-primary" @onclick="AddCustomer">Add Customer</button>
+
+@if (isLoading)
+{
+    <p>Loading...</p>
+}
+else{
+    <table class="table table-striped table-hover">
+        <thead>
+           <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Card Number</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var customer in customerList)
+            {
+                <tr>
+                    <td>@customer.Name</td>
+                    <td>@customer.Surname</td>
+                    <td>@customer.CardNumber</td>   
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditCustomer(customer)">Edit</button>     
+                        <button class="btn btn-danger" @onclick="() => DeleteCustomer(customer)">Delete</button>                                           
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    List<CustomerListViewModel> customerList = new ();
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCustomersFromServer();
+        isLoading = false;
+    }
+
+    private async Task LoadCustomersFromServer()
+    {
+        customerList = await httpClient.GetFromJsonAsync<List<CustomerListViewModel>>("/Customer");
+    }
+
+    void AddCustomer()
+    {
+        navigationManager.NavigateTo("/customers/edit");
+    }
+
+    void EditCustomer(CustomerListViewModel customerToEdit)
+    {
+        navigationManager.NavigateTo($"/customers/edit/{customerToEdit.ID}");
+    }
+
+    async Task DeleteCustomer(CustomerListViewModel customerToDelete)
+    {
+        var response = await httpClient.DeleteAsync($"/Customer/{customerToDelete.ID}");
+        response.EnsureSuccessStatusCode();
+        await LoadCustomersFromServer();
+    }
+}

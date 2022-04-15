@@ -1,0 +1,69 @@
+﻿@page "/customers/edit/{id:int?}"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+
+<h3>Customer Edit</h3>
+
+@if (Customer == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" @bind="@Customer.Name"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Surname</label>
+            <input class="form-control" @bind="@Customer.Surname"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Card Number</label>
+            <input class="form-control" @bind="@Customer.CardNumber"/>
+        </div>   
+        <div class="col-md-6 mt-2">
+            <button class="btn btn-success" @onclick="OnSave">Save</button>
+            <button class="btn btn-danger" @onclick="OnCancel">Cancel</button>
+        </div>
+    </div>
+    
+}
+
+@code {
+    [Parameter] public int? id { get; set; }
+    CustomerListViewModel Customer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (id == null)
+        {
+            Customer = new CustomerListViewModel();
+        }
+        else
+        {
+            Customer = await httpClient.GetFromJsonAsync<CustomerListViewModel>($"/Customer/{id}");
+        }
+    }
+
+    protected void OnCancel()
+    {
+        navigationManager.NavigateTo("/customers");
+    }
+
+    protected async Task OnSave()
+    {
+        HttpResponseMessage response;
+        if (id == null)
+        {
+            response = await httpClient.PostAsJsonAsync("/Customer", Customer);
+        }
+        else
+        {
+            response = await httpClient.PutAsJsonAsync("/Customer", Customer);
+        }
+        response.EnsureSuccessStatusCode();
+        navigationManager.NavigateTo("/customers");
+    }
+}
