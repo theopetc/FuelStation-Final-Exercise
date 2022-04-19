@@ -84,7 +84,16 @@ namespace FuelStation.Win
             Enum.TryParse(itemType, out ItemType itemTypeParsed);
             item.ItemType = itemTypeParsed;
 
-            await _itemRepo.CreateAsync(item);
+            
+            try
+            {
+                await _itemRepo.CreateAsync(item);
+            }
+            catch (Exception DbUpdateException)
+            {
+
+                MessageBox.Show("Item code already exists");
+            }
 
             EmptyControls();
             RefreshItemList();
@@ -129,7 +138,16 @@ namespace FuelStation.Win
                     Enum.TryParse(comboBoxItemType.Text, out ItemType itemTypeParsed);
                     selectedItem.ItemType = itemTypeParsed;
                 }
-                await _itemRepo.UpdateAsync(selectedItem.ID, selectedItem);
+                try
+                {
+                    await _itemRepo.UpdateAsync(selectedItem.ID, selectedItem);
+                }
+                catch (Exception DbUpdateException)
+                {
+
+                    MessageBox.Show("Item code already exists");
+                }
+                
                 RefreshItemList();
             }
             EmptyControls();            
@@ -155,6 +173,17 @@ namespace FuelStation.Win
         {
             EmptyControls();    
             pressedEdit = false;
+        }
+
+        private void grvItems_DataBindingComplete(object sender,
+        DataGridViewBindingCompleteEventArgs e)
+        {
+            // Hide some of the columns.            
+            grvItems.Columns["TransactionLine"].Visible = false;
+            grvItems.Columns["ID"].Visible = false;
+
+
+            grvItems.AutoResizeColumns();
         }
     }
 }

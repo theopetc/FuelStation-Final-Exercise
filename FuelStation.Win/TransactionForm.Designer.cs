@@ -58,15 +58,18 @@
             this.grvTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvTransactions.Location = new System.Drawing.Point(12, 27);
             this.grvTransactions.Name = "grvTransactions";
+            this.grvTransactions.ReadOnly = true;
             this.grvTransactions.RowTemplate.Height = 25;
             this.grvTransactions.Size = new System.Drawing.Size(564, 159);
             this.grvTransactions.TabIndex = 0;
+            this.grvTransactions.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.grvTransactions_DataBindingComplete);
             // 
             // grvTransactionLines
             // 
             this.grvTransactionLines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvTransactionLines.Location = new System.Drawing.Point(12, 207);
             this.grvTransactionLines.Name = "grvTransactionLines";
+            this.grvTransactionLines.ReadOnly = true;
             this.grvTransactionLines.RowTemplate.Height = 25;
             this.grvTransactionLines.Size = new System.Drawing.Size(564, 231);
             this.grvTransactionLines.TabIndex = 1;
@@ -184,6 +187,7 @@
             this.btnRemoveTransaction.TabIndex = 19;
             this.btnRemoveTransaction.Text = "Remove Transaction";
             this.btnRemoveTransaction.UseVisualStyleBackColor = true;
+            this.btnRemoveTransaction.Click += new System.EventHandler(this.btnRemoveTransaction_Click);
             // 
             // btnAddTransactionLine
             // 

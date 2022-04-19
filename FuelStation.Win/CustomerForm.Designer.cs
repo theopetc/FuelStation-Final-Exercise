@@ -50,9 +50,11 @@
             this.grvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvCustomers.Location = new System.Drawing.Point(12, 27);
             this.grvCustomers.Name = "grvCustomers";
+            this.grvCustomers.ReadOnly = true;
             this.grvCustomers.RowTemplate.Height = 25;
             this.grvCustomers.Size = new System.Drawing.Size(565, 411);
             this.grvCustomers.TabIndex = 0;
+            this.grvCustomers.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.grvCustomers_DataBindingComplete);
             // 
             // lblCustomerList
             // 

@@ -42,7 +42,7 @@ namespace FuelStation.EF.Repository
 
         public async Task<IEnumerable<Transaction>> GetAllAsync()
         {
-            return await context.Transactions.ToListAsync();
+            return await context.Transactions.Include("Customer").Include("Employee").ToListAsync();
         }
 
 

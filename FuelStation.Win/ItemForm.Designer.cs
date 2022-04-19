@@ -54,9 +54,11 @@
             this.grvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvItems.Location = new System.Drawing.Point(12, 28);
             this.grvItems.Name = "grvItems";
+            this.grvItems.ReadOnly = true;
             this.grvItems.RowTemplate.Height = 25;
             this.grvItems.Size = new System.Drawing.Size(576, 410);
             this.grvItems.TabIndex = 0;
+            this.grvItems.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.grvItems_DataBindingComplete);
             // 
             // label1
             // 

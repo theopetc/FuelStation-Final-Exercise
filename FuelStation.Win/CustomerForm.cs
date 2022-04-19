@@ -60,8 +60,16 @@ namespace FuelStation.Win
             }
 
             var customer = new Customer() { Name = name, Surname = surname, CardNumber = cardNumber };
-            await _customerRepo.CreateAsync(customer);
+            
+            try
+            {
+                await _customerRepo.CreateAsync(customer);
+            }
+            catch (Exception DbUpdateException)
+            {
 
+                MessageBox.Show("Card Number already exists");
+            }
             EmptyTextBoxes();
             RefreshCustomerList();
         }
@@ -120,11 +128,29 @@ namespace FuelStation.Win
                     selectedCustomer.Surname = txtSurname.Text;
                     selectedCustomer.CardNumber = txtCardNumber.Text;                    
                 }
-                await _customerRepo.UpdateAsync(selectedCustomer.ID, selectedCustomer);
+                try
+                {
+                    await _customerRepo.UpdateAsync(selectedCustomer.ID, selectedCustomer);
+                }
+                catch (Exception DbUpdateException)
+                {
+
+                    MessageBox.Show("Card Number already exists");
+                }
+                
                 RefreshCustomerList();
             }
             EmptyTextBoxes();
             pressedEdit = false;
+        }
+
+        private void grvCustomers_DataBindingComplete(object sender,
+        DataGridViewBindingCompleteEventArgs e)
+        {
+            // Hide some of the columns.                        
+            grvCustomers.Columns["ID"].Visible = false;
+
+            grvCustomers.AutoResizeColumns();
         }
     }
 }
