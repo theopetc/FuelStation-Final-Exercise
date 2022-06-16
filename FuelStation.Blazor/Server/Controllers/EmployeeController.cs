@@ -50,10 +50,11 @@ namespace FuelStation.Blazor.Server.Controllers
         [HttpPost]
         public async Task Post(EmployeeListViewModel employee)
         {
+            var now = DateTime.Now;
             var newEmployee = new Employee();
             newEmployee.Name = employee.Name;
             newEmployee.Surname = employee.Surname;
-            newEmployee.HireDateStart = employee.HireDateStart;
+            newEmployee.HireDateStart = now;
             newEmployee.HireDateEnd = employee.HireDateEnd;
             newEmployee.SallaryPerMonth = employee.SallaryPerMonth;
             newEmployee.EmployeeType = employee.EmployeeType;
