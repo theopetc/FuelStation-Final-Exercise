@@ -65,6 +65,7 @@ namespace FuelStation.Blazor.Server.Controllers
             if (id != 0)
             {
                 var existing = await _ledgerRepo.GetByIdAsync(id);
+                if (existing is null) return new LedgerViewModel();
                 model.ID = existing.ID;
                 model.Year = existing.Year;
                 model.Month = existing.Month;
