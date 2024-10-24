@@ -1,6 +1,7 @@
 ﻿using FuelStation.Blazor.Shared;
 using FuelStation.EF.Repository;
 using FuelStation.Model;
+using FuelStation.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuelStation.Blazor.Server.Controllers
@@ -9,24 +10,19 @@ namespace FuelStation.Blazor.Server.Controllers
     [Route("[controller]")]
     public class CustomerController : ControllerBase
     {
-        private readonly IEntityRepo<Customer> _customerRepo;
-        public CustomerController(IEntityRepo<Customer> customerRepo)
+        private readonly CustomerHandler _customerHandler;
+        public CustomerController(CustomerHandler customerHandler)
         {
-            _customerRepo = customerRepo;
+            _customerHandler = customerHandler;
         }
 
         [HttpGet]
         public async Task<IEnumerable<CustomerListViewModel>> Get()
         {
-            var result = await _customerRepo.GetAllAsync();
-            return result.Select(x => new CustomerListViewModel
-            {
-                ID = x.ID,
-                Name = x.Name,
-                Surname = x.Surname,
-                CardNumber = x.CardNumber
-            });
+            return await _customerHandler.GetAllCustomers();
         }
+
+        /*
 
         [HttpGet("{id}")]
         public async Task<CustomerListViewModel> Get(int id)
@@ -72,6 +68,6 @@ namespace FuelStation.Blazor.Server.Controllers
             await _customerRepo.UpdateAsync(customer.ID, customerToUpdate);
 
             return Ok();
-        }
+        }*/
     }
 }
